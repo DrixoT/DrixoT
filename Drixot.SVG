@@ -1,0 +1,200 @@
+<svg width="900" height="300" viewBox="0 0 900 300"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <style>
+      @keyframes glitch1 {
+        0%, 100% { transform: translate(0, 0); opacity: 0.8; }
+        20% { transform: translate(-3px, 2px); opacity: 0.9; }
+        40% { transform: translate(3px, -2px); opacity: 0.7; }
+        60% { transform: translate(-2px, -1px); opacity: 0.85; }
+        80% { transform: translate(2px, 1px); opacity: 0.75; }
+      }
+      
+      @keyframes glitch2 {
+        0%, 100% { transform: translate(0, 0); opacity: 0.7; }
+        25% { transform: translate(4px, -1px); opacity: 0.8; }
+        50% { transform: translate(-4px, 1px); opacity: 0.6; }
+        75% { transform: translate(2px, 2px); opacity: 0.75; }
+      }
+      
+      @keyframes glitch3 {
+        0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+        33% { transform: translate(-2px, -2px); opacity: 0.7; }
+        66% { transform: translate(2px, 2px); opacity: 0.5; }
+      }
+      
+      @keyframes rgbShift1 {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(3px, -1px); }
+        50% { transform: translate(-3px, 1px); }
+        75% { transform: translate(2px, -1px); }
+      }
+      
+      @keyframes rgbShift2 {
+        0%, 100% { transform: translate(0, 0); }
+        30% { transform: translate(-4px, 2px); }
+        60% { transform: translate(4px, -2px); }
+        90% { transform: translate(-2px, 1px); }
+      }
+      
+      @keyframes flicker {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.8; }
+        51% { opacity: 0.9; }
+        52% { opacity: 0.7; }
+      }
+      
+      .glitch-layer-1 {
+        animation: glitch1 0.15s infinite;
+      }
+      
+      .glitch-layer-2 {
+        animation: glitch2 0.18s infinite;
+      }
+      
+      .glitch-layer-3 {
+        animation: glitch3 0.12s infinite;
+      }
+      
+      .rgb-red {
+        animation: rgbShift1 0.2s infinite;
+      }
+      
+      .rgb-blue {
+        animation: rgbShift2 0.22s infinite;
+      }
+      
+      .flicker {
+        animation: flicker 0.1s infinite;
+      }
+    </style>
+    
+    <!-- BACKGROUND GRADIENT -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="50%" stop-color="#121212"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    
+    <!-- SCANLINE PATTERN -->
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1" fill="rgba(255,122,0,0.04)" />
+    </pattern>
+    
+    <!-- GLITCH FILTERS -->
+    <!-- RGB Split Glitch Filter - Variant 1 -->
+    <filter id="glitchRGB1" x="-20%" y="-20%" width="140%" height="140%">
+      <feOffset in="SourceAlpha" dx="4" dy="-2" result="redOffset"/>
+      <feFlood flood-color="#ff0000" flood-opacity="0.7"/>
+      <feComposite in2="redOffset" operator="in" result="redChannel"/>
+      
+      <feOffset in="SourceAlpha" dx="-4" dy="2" result="blueOffset"/>
+      <feFlood flood-color="#00ffff" flood-opacity="0.7"/>
+      <feComposite in2="blueOffset" operator="in" result="blueChannel"/>
+      
+      <feMerge>
+        <feMergeNode in="redChannel"/>
+        <feMergeNode in="blueChannel"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- RGB Split Glitch Filter - Variant 2 -->
+    <filter id="glitchRGB2" x="-20%" y="-20%" width="140%" height="140%">
+      <feOffset in="SourceAlpha" dx="5" dy="1" result="redOffset"/>
+      <feFlood flood-color="#ff3333" flood-opacity="0.6"/>
+      <feComposite in2="redOffset" operator="in" result="redChannel"/>
+      
+      <feOffset in="SourceAlpha" dx="-5" dy="-1" result="blueOffset"/>
+      <feFlood flood-color="#33ffff" flood-opacity="0.6"/>
+      <feComposite in2="blueOffset" operator="in" result="blueChannel"/>
+      
+      <feMerge>
+        <feMergeNode in="redChannel"/>
+        <feMergeNode in="blueChannel"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Strong glow for accent layers -->
+    <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- BACKGROUND -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  <rect width="100%" height="100%" fill="url(#scan)"/>
+
+  <!-- GLITCH TEXT LAYERS - Animated -->
+  
+  <!-- Deep shadow layers -->
+  <text x="450" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#000000" opacity="0.4">DrixoT</text>
+  <text x="452" y="182" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#000000" opacity="0.3" class="glitch-layer-3">DrixoT</text>
+  
+  <!-- RGB Split Layer 1 - Blue channel (left offset) - Animated -->
+  <text x="446" y="178" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#00ffff" opacity="0.8" filter="url(#strongGlow)" class="rgb-blue">DrixoT</text>
+  
+  <!-- RGB Split Layer 2 - Red channel (right offset) - Animated -->
+  <text x="454" y="182" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#ff0000" opacity="0.8" filter="url(#strongGlow)" class="rgb-red">DrixoT</text>
+  
+  <!-- Additional RGB variations for depth - Animated -->
+  <text x="447" y="181" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="700" fill="none" stroke="#00ccff" stroke-width="3" opacity="0.6" class="glitch-layer-1">DrixoT</text>
+  <text x="453" y="179" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="700" fill="none" stroke="#ff3333" stroke-width="3" opacity="0.6" class="glitch-layer-2">DrixoT</text>
+  
+  <!-- Secondary RGB split layers - Animated -->
+  <text x="448" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="800" fill="#33ffff" opacity="0.5" class="rgb-blue">DrixoT</text>
+  <text x="452" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="800" fill="#ff6666" opacity="0.5" class="rgb-red">DrixoT</text>
+  
+  <!-- Main text with RGB glitch filter variant 1 - Animated -->
+  <text x="450" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#ff7a00" opacity="0.9" filter="url(#glitchRGB1)" class="glitch-layer-1">DrixoT</text>
+  
+  <!-- Primary text layer - Flickering -->
+  <text x="450" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="900" fill="#ff7a00" opacity="1" class="flicker">DrixoT</text>
+  
+  <!-- Highlight and accent layers - Animated -->
+  <text x="450" y="180" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="700" fill="none" stroke="#ffa14a" stroke-width="4" opacity="0.7" class="glitch-layer-2">DrixoT</text>
+  <text x="451" y="181" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="700" fill="none" stroke="#ff7a00" stroke-width="2" opacity="0.5" class="glitch-layer-3">DrixoT</text>
+  
+  <!-- Additional glitch accent layers with varied offsets - Animated -->
+  <text x="449" y="179" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="600" fill="#ffaa00" opacity="0.4" class="glitch-layer-1">DrixoT</text>
+  <text x="451" y="181" text-anchor="middle" font-family="'Courier New', 'Monaco', 'Consolas', monospace" font-size="160" font-weight="600" fill="#ff8800" opacity="0.4" class="glitch-layer-2">DrixoT</text>
+  
+  <!-- Glitch accent lines - varied positions for dynamic look -->
+  <g opacity="0.5" class="glitch-layer-3">
+    <!-- Horizontal glitch lines -->
+    <line x1="180" y1="170" x2="230" y2="170" stroke="#ff0000" stroke-width="2.5"/>
+    <line x1="670" y1="190" x2="720" y2="190" stroke="#00ffff" stroke-width="2.5"/>
+    <line x1="280" y1="165" x2="310" y2="165" stroke="#ff7a00" stroke-width="2"/>
+    <line x1="590" y1="195" x2="620" y2="195" stroke="#ff7a00" stroke-width="2"/>
+    <line x1="350" y1="168" x2="370" y2="168" stroke="#ff3333" stroke-width="1.5"/>
+    <line x1="530" y1="192" x2="550" y2="192" stroke="#33ffff" stroke-width="1.5"/>
+    
+    <!-- Vertical glitch accents -->
+    <line x1="240" y1="160" x2="240" y2="200" stroke="#ff0000" stroke-width="1" opacity="0.6"/>
+    <line x1="660" y1="175" x2="660" y2="205" stroke="#00ffff" stroke-width="1" opacity="0.6"/>
+  </g>
+  
+  <!-- Glitch block artifacts - Animated -->
+  <g opacity="0.3" class="glitch-layer-1">
+    <rect x="220" y="165" width="15" height="8" fill="#ff0000"/>
+    <rect x="665" y="185" width="12" height="6" fill="#00ffff"/>
+    <rect x="295" y="162" width="10" height="5" fill="#ff7a00"/>
+    <rect x="605" y="193" width="8" height="4" fill="#ff7a00"/>
+  </g>
+
+</svg>
